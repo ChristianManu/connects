@@ -1,0 +1,48 @@
+CREATE TABLE  recruiter(
+	recruiter_id INT UNIQUE PRIMARY KEY,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	office_phone_number VARCHAR(15) NOT NULL,
+	phone_nbumber VARCHAR(15) NOT NULL,
+	date_added TIMESTAMP NOT NULL,
+	last_update TIMESTAMP NOT NULL,
+	active INT DEFAULT(1)	
+);
+
+CREATE TABLE company(
+	company_id INT UNIQUE PRIMARY KEY,
+	name VARCHAR(50) NOT NULL,
+	email VARCHAR(50) NOT NULL,
+	address VARCHAR(225) NOT NULL,
+	phone_nbumber VARCHAR(15) NOT NULL,
+	date_added TIMESTAMP NOT NULL,
+	last_update TIMESTAMP NOT NULL,
+	active INT DEFAULT(1)	
+);
+
+CREATE TABLE recruiter_company(
+	recruiter_company_id INT UNIQUE PRIMARY KEY,
+	company_id INT NOT NULL,
+	recruiter_id INT NOT NULL,
+	FOREIGN KEY (company_id)
+		REFERENCES company (company_id),
+	FOREIGN KEY (recruiter_id)
+		REFERENCES recruiter (recruiter_id)
+);
+
+CREATE TABLE job(
+	job_id INT UNIQUE PRIMARY KEY,
+	job_title VARCHAR(225) NOT NULL,
+	description VARCHAR(225) NOT NULL,
+	responsibilities VARCHAR(225) NOT NULL,
+	years_of_experience INT,
+	date_added TIMESTAMP NOT NULL,
+	last_update TIMESTAMP NOT NULL,
+	company_id INT,
+	recruiter_id INT,
+	active INT DEFAULT(1),
+	FOREIGN KEY (company_id)
+		REFERENCES company (company_id),
+	FOREIGN KEY (recruiter_id)
+		REFERENCES recruiter (recruiter_id)
+);
